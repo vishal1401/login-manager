@@ -1,0 +1,12 @@
+# Ignore generated directories
+/out/
+venv
+log
+.settings
+
+# Ignore generated files
+*.pyc
+*.pyo
+*.orig
+*~
+
