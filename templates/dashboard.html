@@ -1,0 +1,75 @@
+<!Doctype HTML>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <script src="https://momentjs.com/downloads/moment.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 text-right align-middle">
+            <h5>
+                Current session:
+                <script>
+                  document.write(moment('{{current_session.login_time}}', 'MMM DD YYYY, h:mm a').format('ll'));
+                </script>
+                &nbsp;
+                <script>
+                  document.write(moment('{{current_session.login_time}}', 'MMM DD YYYY, h:mm a').format('LT'));
+                </script>
+            </h5>
+        </div>
+        <div class="col-lg-2 text-right">
+            <a href="/logout/" class="btn btn-danger">Log Out</a>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6">
+          {% if total_sessions > 0 %}
+          <h2 class="text-center">Past Sessions: {{total_sessions}}</h2>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Login</th>
+                <th>Logout</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for session in sessions %}
+              <tr>
+                <td>
+                  <script>
+                    document.write(moment('{{session.login_time}}', 'MMM DD YYYY, h:mm a').format('ll'));
+                  </script>
+                  &nbsp;
+                  <script>
+                    document.write(moment('{{session.login_time}}', 'MMM DD YYYY, h:mm a').format('LT'));
+                  </script>
+                </td>
+                <td>
+                  {% if session.logout_time %}
+                  <script>
+                    document.write(moment('{{session.logout_time}}', 'MMM DD YYYY, h:mm a').format('ll'));
+                  </script>
+                  &nbsp;
+                  <script>
+                    document.write(moment('{{session.logout_time}}', 'MMM DD YYYY, h:mm a').format('LT'));
+                  </script>
+                  {% else %}
+                  Active
+                  {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% else %}
+          <h2>No sessions exist</h2>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
